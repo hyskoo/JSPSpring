@@ -34,7 +34,9 @@ public class LoginServlet extends HttpServlet {
 //		out.println("</html>");
 		
 		//Dispatcher는 총괄자라고 생각하면 좀편함. forward는 실제 화면전환이 아니라 사용자에게 받은 request를 다른쪽에 넘겨주는것일뿐.
-		request.getRequestDispatcher("loginForm.jsp").forward(request, response);
+		
+//		/로 시작하면 WebContent부터 시작한다.
+		request.getRequestDispatcher("/WEB-INF/views/loginForm.jsp").forward(request, response);
 		
 	}
 
@@ -50,6 +52,6 @@ public class LoginServlet extends HttpServlet {
 //		out.println("location.href='https://www.naver.com';");
 //		out.println("</script>");
 		
-		request.getRequestDispatcher("login_success.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/login_success.jsp").forward(request, response);
 	}
 }
