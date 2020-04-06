@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Member-Mapper">
+
+	<select id="selectMemberById" resultType="member" parameterType="str">
+		SELECT *
+		FROM member
+		WHERE id=#{id}
+	</select>
+	
+	<select id="selectMemberList" resultType="member">
+		SELECT *
+		FROM member
+	</select>
+	
+	<select id="selectMemberListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM member
+	</select>
+	
+	<update id="insertMember" parameterType="member">
+		INSERT INTO member (id, pwd, email, phone, picture)
+		VALUES (#{id}, #{pwd}, #{email}, #{phone}, #{picture})
+	</update>
+	
+	<update id="updateMember" parameterType="member">
+		UPDATE member
+		SET pwd=#{pwd}, email=#{email}, phone=#{phone} picture=#{picture}
+		
+		<if test="authority != null">
+			,authority=#{authority}
+		</if>
+		WHERE id=#{id}
+	</update>
+	
+	<delete id="deleteMember" parameterType="str">
+		DELETE FROM member
+		WHERE id = #{id}
+	</delete>
+</mapper>
