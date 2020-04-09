@@ -21,13 +21,17 @@ public class MemberDAOImpl implements MemberDAO {
 	private SqlSessionFactory sessionFactory 
 			= OracleMyBatisSqlSessionFactoryBuilder.getSqlSessionFactory();
 	
+	// 원래 여기에 finally에 session.close를 해야된다.
 	
 	@Override
 	public List<MemberVO> selectMemberList() throws SQLException {
 		SqlSession session = sessionFactory.openSession();
-		List<MemberVO> memberList = session.selectList(
-				"Member-Mapper.selectMemberList", null);
-		session.close();
+		List<MemberVO> memberList = null;
+		try {
+			memberList = session.selectList("Member-Mapper.selectMemberList", null);
+		} finally {
+			session.close();
+		}
 		return memberList;
 	}
 

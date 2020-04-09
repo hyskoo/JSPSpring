@@ -19,13 +19,13 @@
 	</select>
 	
 	<update id="insertMember" parameterType="member">
-		INSERT INTO member (id, pwd, email, phone, picture)
-		VALUES (#{id}, #{pwd}, #{email}, #{phone}, #{picture})
+		INSERT INTO member (id, pwd, email, phone, picture, name)
+		VALUES (#{id}, #{pwd}, #{email}, #{phone}, #{picture}, #{name})
 	</update>
 	
 	<update id="updateMember" parameterType="member">
 		UPDATE member
-		SET pwd=#{pwd}, email=#{email}, phone=#{phone} picture=#{picture}
+		SET pwd=#{pwd}, email=#{email}, phone=#{phone} picture=#{picture}, name=#{name}
 		
 		<if test="authority != null">
 			,authority=#{authority}

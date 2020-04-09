@@ -25,8 +25,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	
 	@Override
-	public void login(String id, String pwd) throws SQLException, 
-								NotFoundIDException, InvalidPasswordException {
+	public void login(String id, String pwd) throws SQLException, NotFoundIDException, InvalidPasswordException {
 		MemberVO member = memberDAO.selectMemberById(id);
 		if (member == null)	throw new NotFoundIDException();
 		if (!pwd.equals(member.getPwd())) throw new InvalidPasswordException();
