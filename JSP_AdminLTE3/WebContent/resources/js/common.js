@@ -14,3 +14,15 @@ function CloseWindow(){
 	window.opener.location.reload(true);
 	window.close();
 }
+
+// 회원등록시 사진업로드
+function SubmitMemberRegist(formRole){
+	var uploadCheck = $('input[name="checkUpload"]').val();
+	if(!(uploadCheck>0)){
+		alert("사진 업로드는 필수입니다.");
+		// $('input[name="pictureFile"]').click();
+		return;
+	}
+	var form = $('form[role='+ formRole +']');
+	form.submit();
+}

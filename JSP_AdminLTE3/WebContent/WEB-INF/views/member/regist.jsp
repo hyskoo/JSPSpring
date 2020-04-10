@@ -34,8 +34,23 @@
 		<div class="register-box">
 			<!-- form start -->
 			<div class="card">
+				<div class="card-header">
+					<div class="card-footer">
+						<div class="row">								
+							<div class="col-sm-6">
+								<button type="button" class="btn btn-info" onclick="SubmitMemberRegist('form');">가입하기</button> <!-- id는 지우고 onclick추가 -->
+						 	</div>
+						 	
+						 	<div class="col-sm-6">
+								<button type="button" id="cancelBtn" onclick="CloseWindow();"
+									class="btn btn-default float-right">&nbsp;&nbsp;&nbsp;취 &nbsp;&nbsp;소&nbsp;&nbsp;&nbsp;</button>
+							</div>
+						
+						</div>
+					</div>
+				</div>
 				<div class="register-card-body">
-					<form role="form" class="form-horizontal" action="regist" method="post">						
+					<form role="form" class="form-horizontal" action="regist" method="post" >						
 						<input type="hidden" name="picture" />
 						<div class="input-group mb-3">
 							<div class="mailbox-attachments clearfix" style="text-align: center;">
@@ -118,19 +133,7 @@
 							</div>
 						</div>
 						
-						<div class="card-footer">
-							<div class="row">								
-								<div class="col-sm-6">
-									<button type="button" id="registBtn" class="btn btn-info">가입하기</button>
-							 	</div>
-							 	
-							 	<div class="col-sm-6">
-									<button type="button" id="cancelBtn" onclick="CloseWindow();"
-										class="btn btn-default float-right">&nbsp;&nbsp;&nbsp;취 &nbsp;&nbsp;소&nbsp;&nbsp;&nbsp;</button>
-								</div>
-							
-							</div>
-						</div>
+						
 					</form>					
 				</div><!-- register-card-body -->
 			</div>
@@ -140,8 +143,7 @@
 <!-- /.content-wrapper -->
 
 
-<form role="imageForm" action="upload/picture" method="post" 
-		enctype="multipart/form-data">
+<form role="imageForm" action="upload/picture" method="post"  enctype="multipart/form-data">
 	<input id="inputFile" name="pictureFile" type="file" class="form-control" style="display:none;">
 	<input id="oldFile" type="hidden" name="oldPicture" value="" />
 	<input type="hidden" name="checkUpload" value="0" />	
@@ -151,8 +153,6 @@
 <%@ include file="/WEB-INF/views/include/open_footer.jsp" %>
 
 <%@ include file="picture_js.jsp" %>
-<%@ include file="regist_js.jsp" %>
-
 
 
 
