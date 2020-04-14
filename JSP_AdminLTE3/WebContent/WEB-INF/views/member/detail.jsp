@@ -3,9 +3,9 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%@ include file="/WEB-INF/views/include/open_header.jsp" %>
+<%-- <%@ include file="/WEB-INF/views/include/open_header.jsp" %> --%>
 
-
+<body>
   <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
 	  <section class="content-header">
@@ -32,10 +32,10 @@
   
     <section class="content register-page" style="height: 586.391px;">       
 		<div class="register-box" style="min-width:450px;">
-	    	<form role="form" class="form-horizontal" action="regist" method="post">
+	    	<form role="form" class="form-horizontal" action="regist.do" method="post">
 	        	<div class="register-card-body" >
 	        		<div class="card-header">
-	        			  	
+	        			
 	        		</div>
 	            	<div class="row"  style="height:200px;">
 						<div class="mailbox-attachments clearfix col-md-12" style="text-align: center;">							
@@ -46,7 +46,7 @@
 	                <div class="form-group row" >
 	                  <label for="inputEmail3" class="col-sm-3 control-label text-right">아이디</label>
 	                  <div class="col-sm-9">
-	                    <input name="id" type="text" class="form-control" id="inputEmail3" value="${member.id }">
+	                    <input name="id" type="text" readonly class="form-control" id="inputEmail3" value="${member.id }">
 	                  </div>
 	                </div>
 	
@@ -74,23 +74,30 @@
 	                  	<input name="phone" type="text" class="form-control" id="inputPassword3" value="${member.phone.substring(0,3) }-${member.phone.substring(3,7)}-${member.phone.substring(7) }">	                
 	                  </div>                  
 	                </div>               
-	            </div>  <!-- card body -->
-	              <div class="card fotter">
+	              </div> <!-- card body -->
+	              <div class="card-footer">
 	              	<div class="row">
 			          		<div class="col-sm-3 text-center">
-			          			<button type="button" id="modifyBtn" class="btn btn-warning">수 정</button>
+			          			<button type="button" id="modifyBtn" class="btn btn-warning ">수 정</button>
 			          		</div>
 			          		<div class="col-sm-3text-center">
-				          		<button type="button" id="deleteBtn" class="btn btn-danger">삭 제</button>
+				          		<button type="button" id="deleteBtn" class="btn btn-danger" >삭 제</button>
 			          		</div>
-			          		<div class="col-sm-3 text-center">
-			          			<button type="button" id="stopBtn" class="btn btn-info">정 지</button>
-			          		</div>
+			          		<c:if test="${member.enabled eq 1 }">
+				          		<div class="col-sm-3 text-center">
+				          			<button type="button" id="disabledBtn" class="btn btn-info" >정 지</button>
+				          		</div>
+			          		</c:if>
+			          		<c:if test="${member.enabled eq 0 }">
+				          		<div class="col-sm-3 text-center">
+				          			<button type="button" id="enabledBtn" class="btn btn-info" >활 성</button>
+				          		</div>
+			          		</c:if>
 			          		<div class="col-sm-3 text-center">
 			            		<button type="button" id="listBtn" onclick="CloseWindow();" class="btn btn-primary pull-right">닫 기</button>
 			            	</div>
-		          	    </div>
-	              </div>		          	     
+		          	    </div>  	
+	              </div> 		          	     
 	      	  </form>
       	  </div>
     </section>
@@ -104,43 +111,44 @@
 </form>
 
 
-<%@ include file="/WEB-INF/views/include/open_footer.jsp" %>
+<%-- <%@ include file="/WEB-INF/views/include/open_footer.jsp" %> --%>
 
 <script>
-	var imageURL = "picture/get?picture=${member.picture}";
-	$('div#pictureView').css({  'background-image' : 'url('+ imageURL +')',
-								'background-position' : 'center', 
-								'background-size' : 'cover',
-								'background-repeat' : 'no-reapeat'
+	var imageURL="picture/get?picture=${member.picture}";
+	$('div#pictureView').css({'background-image':'url('+imageURL+')',
+							  'background-position':'center',
+							  'background-size':'cover',
+							  'background-repeat':'no-repeat'
 	});
 	
-	
-	
-	$('#modifyBtn').on('click', function(e){
-		location.href="modify?id=${member.id}";
+		
+	$('#modifyBtn').on('click',function(e){		
+		location.href="modify?id=${member.id}";		
 	});
-
-	$('#stopBtn').on('click', function(e){
-		location.href="stop?id=${member.id}";
+	$('#disabledBtn').on('click',function(e){	
+		location.href="disabled?id=${member.id}";
 	});
-	
-	$('#deleteBtn').on('click', function(e){
-		var pwd = prompt("관리자 암호를 입력하세요");
+	$('#enabledBtn').on('click',function(e){	
+		location.href="enabled?id=${member.id}";
+	});
+	$('#deleteBtn').on('click',function(e){
+		var pwd = prompt("암호를 입력하세요");
 		
 		$.ajax({
-			url : "checkPassword?pwd=" + pwd,
-			type : "get",
-			success : function(data){
-				if (data=="SUCCESS") {
+			url:"checkPassword?pwd="+pwd,
+			type:"get",
+			success:function(data){
+				if(data=="SUCCESS"){
 					location.href="remove?id=${member.id}";
-				} else {
+				}else{
 					alert("패스워드가 일치하지 않습니다.");
 				}
 			}
 		});
+		
 	});
 </script>
-
+</body>
 
 
 

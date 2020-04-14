@@ -25,7 +25,8 @@ public class MemberServiceImpl implements MemberService {
 	
 	
 	@Override
-	public void login(String id, String pwd) throws SQLException, NotFoundIDException, InvalidPasswordException {
+	public void login(String id, String pwd) throws SQLException, 
+								NotFoundIDException, InvalidPasswordException {
 		MemberVO member = memberDAO.selectMemberById(id);
 		if (member == null)	throw new NotFoundIDException();
 		if (!pwd.equals(member.getPwd())) throw new InvalidPasswordException();
@@ -56,6 +57,15 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void remove(String id) throws SQLException {
 		memberDAO.deleteMember(id);
+	}
+	@Override
+	public void disabled(String id) throws SQLException {
+		memberDAO.disabledMember(id);
+		
+	}
+	@Override
+	public void enabled(String id) throws SQLException {
+		memberDAO.enabledMember(id);
 	}
 
 }

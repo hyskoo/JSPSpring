@@ -37,4 +37,17 @@
 		DELETE FROM member
 		WHERE id = #{id}
 	</delete>
+	
+	<update id="disabledMember" parameterType="String">
+		UPDATE member
+		SET enabled = 0
+		WHERE id = #{id}
+	</update>
+	
+	<update id="enabledMember" parameterType="String">
+		UPDATE member
+		SET enabled = 1
+		WHERE id = #{id}
+	</update>
+	
 </mapper>

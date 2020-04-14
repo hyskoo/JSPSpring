@@ -3,8 +3,8 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 
 
-<%@ include file="/WEB-INF/views/include/open_header.jsp" %>
-
+<%-- <%@ include file="/WEB-INF/views/include/open_header.jsp" %> --%>
+<body>
 	<!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
@@ -38,7 +38,7 @@
 					<div class="card-footer">
 						<div class="row">								
 							<div class="col-sm-6">
-								<button type="button" class="btn btn-info" onclick="SubmitMemberRegist('form');">가입하기</button> <!-- id는 지우고 onclick추가 -->
+								<button type="button" class="btn btn-info" onclick="SubmitMember('form');">가입하기</button> <!-- id는 지우고 onclick추가 -->
 						 	</div>
 						 	
 						 	<div class="col-sm-6">
@@ -150,9 +150,9 @@
 </form>
 
 
-<%@ include file="/WEB-INF/views/include/open_footer.jsp" %>
+<%-- <%@ include file="/WEB-INF/views/include/open_footer.jsp" %> --%>
 
 <%@ include file="picture_js.jsp" %>
-
+</body>
 
 

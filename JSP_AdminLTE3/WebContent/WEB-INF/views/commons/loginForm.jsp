@@ -42,7 +42,8 @@ body.login-page{
 
 			<form action="<%=request.getContextPath() %>/commons/login"	method="post">
 				<div class="form-group has-feedback">
-					<input type="text" class="form-control" name="id" placeholder="아이디를 입력하세요." value="mimi${param.id }">
+					<input type="text" class="form-control" name="id" placeholder="아이디를 입력하세요." value="mimi${param.id }"
+							onkeyup="this.value=this.value.replace(/[\ㄱ-ㅎㅏ-ㅣ가-힣]/g, &#39;&#39;);">
 					<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 				</div>
 				<div class="form-group has-feedback">

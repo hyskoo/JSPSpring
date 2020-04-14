@@ -21,17 +21,13 @@ public class MemberDAOImpl implements MemberDAO {
 	private SqlSessionFactory sessionFactory 
 			= OracleMyBatisSqlSessionFactoryBuilder.getSqlSessionFactory();
 	
-	// 원래 여기에 finally에 session.close를 해야된다.
 	
 	@Override
 	public List<MemberVO> selectMemberList() throws SQLException {
 		SqlSession session = sessionFactory.openSession();
-		List<MemberVO> memberList = null;
-		try {
-			memberList = session.selectList("Member-Mapper.selectMemberList", null);
-		} finally {
-			session.close();
-		}
+		List<MemberVO> memberList = session.selectList(
+				"Member-Mapper.selectMemberList", null);
+		session.close();
 		return memberList;
 	}
 
@@ -39,8 +35,11 @@ public class MemberDAOImpl implements MemberDAO {
 	public int selectMemberListCount() throws SQLException {
 		int count=0;		
 		SqlSession session=sessionFactory.openSession();
-		count=session.selectOne("Member-Mapper.selectMemberListCount",null);		
-		session.close();		
+		try {
+			count=session.selectOne("Member-Mapper.selectMemberListCount",null);
+		}finally {
+			session.close();
+		}
 		return count;
 	}
 
@@ -74,6 +73,20 @@ public class MemberDAOImpl implements MemberDAO {
 		session.update("Member-Mapper.deleteMember",id);
 		session.close();
 
+	}
+	@Override
+	public void disabledMember(String id) throws SQLException {
+		SqlSession session=sessionFactory.openSession(true);
+		session.update("Member-Mapper.disabledMember",id);
+		session.close();
+		
+	}
+	@Override
+	public void enabledMember(String id) throws SQLException {
+		SqlSession session=sessionFactory.openSession(true);
+		session.update("Member-Mapper.enabledMember",id);
+		session.close();
+		
 	}
 
 }
