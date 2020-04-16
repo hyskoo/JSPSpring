@@ -32,7 +32,7 @@
   
     <section class="content register-page" style="height: 586.391px;">       
 		<div class="register-box" style="min-width:450px;">
-	    	<form role="form" class="form-horizontal" action="regist.do" method="post">
+	    	<form role="form" class="form-horizontal" action="regist" method="post">
 	        	<div class="register-card-body" >
 	        		<div class="card-header">
 	        			
@@ -148,8 +148,8 @@
 		
 	});
 </script>
-</body>
 
+</body>
 
 
 

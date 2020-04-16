@@ -36,7 +36,7 @@ public class LoginCheckFilter implements Filter {
 		String reqUrl=httpReq.getRequestURI()
 				.substring(httpReq.getContextPath().length());
 			
-		System.out.println("LoginCheckFilter_reqUrl : " + reqUrl);
+//		System.out.println("LoginCheckFilter_reqUrl : " + reqUrl);
 		
 		if(excludeCheck(reqUrl)) {
 			chain.doFilter(request, response);	

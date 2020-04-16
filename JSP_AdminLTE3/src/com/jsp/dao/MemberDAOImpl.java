@@ -7,19 +7,24 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.jsp.dto.MemberVO;
-import com.jsp.mybatis.OracleMyBatisSqlSessionFactoryBuilder;
+import com.jsp.mybatis.OracleMyBatisSqlSessionFactory;
 
 public class MemberDAOImpl implements MemberDAO {
 
+/*
 	private static MemberDAOImpl instance=new MemberDAOImpl();
 	private MemberDAOImpl() {}
 	public static MemberDAOImpl getInstance() {
 		return instance;
 	}
+*/
 	
 	// SqlSessionFactory
-	private SqlSessionFactory sessionFactory 
-			= OracleMyBatisSqlSessionFactoryBuilder.getSqlSessionFactory();
+	private SqlSessionFactory sessionFactory;
+	public void setSessionFactory(SqlSessionFactory sessionFactory) {
+		this.sessionFactory=sessionFactory;
+	}
+//			= OracleMyBatisSqlSessionFactoryBuilder.getSqlSessionFactory();
 	
 	
 	@Override

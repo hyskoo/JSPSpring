@@ -13,23 +13,13 @@ import javax.servlet.http.HttpSession;
 import com.jsp.dto.MemberVO;
 import com.jsp.exception.InvalidPasswordException;
 import com.jsp.exception.NotFoundIDException;
+import com.jsp.service.MemberService;
 import com.jsp.service.MemberServiceImpl;
 import com.jsp.utils.ViewResolver;
 
 
 @WebServlet("/commons/login")
 public class LoginServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-   
-	/*public void init(ServletConfig config) throws ServletException {
-		System.out.println("init() execute!");
-	}
-
-	
-	public void destroy() {
-		System.out.println("destory() execute!");
-	}
-*/
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.jsp.dto.MemberVO;
 import com.jsp.request.MemberRegistRequest;
+import com.jsp.service.MemberService;
 import com.jsp.service.MemberServiceImpl;
 import com.jsp.utils.GetUploadPath;
 import com.jsp.utils.ViewResolver;
@@ -22,6 +23,8 @@ import com.jsp.utils.ViewResolver;
  */
 @WebServlet("/member/modify")
 public class MemberModifyServlet extends HttpServlet {
+	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url="member/modify";		
 		String id=request.getParameter("id");		

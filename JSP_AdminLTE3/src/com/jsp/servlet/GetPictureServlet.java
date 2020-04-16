@@ -42,11 +42,11 @@ public class GetPictureServlet extends HttpServlet {
 		
 		// 파일 포맷으로 MIME를 결정한다.
 		String mimeType = context.getMimeType(filePath);
-		System.out.println("MIME type : " + mimeType);
+//		System.out.println("MIME type : " + mimeType);
 		if (mimeType == null) {
 			mimeType = "application/octet-stream";
 		}
-		System.out.println("MIME type : " + mimeType);
+//		System.out.println("MIME type : " + mimeType);
 		
 		// response 수정.
 		response.setContentType(mimeType);

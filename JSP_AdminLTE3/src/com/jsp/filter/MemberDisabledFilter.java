@@ -13,56 +13,53 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.jsp.dto.MemberVO;
 import com.jsp.utils.ViewResolver;
 
+
 public class MemberDisabledFilter implements Filter {
 
-	private List<String> exURLs = new ArrayList<>();
+	private List<String> checkURLs=new ArrayList<String>();
 	
-	public void destroy() { }
+	public void destroy() {
+		// TODO Auto-generated method stub
+	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		
-		//제외할 url 확인
-		String reqUrl=httpRequest.getRequestURI();
-
-		System.out.println("MemberDisableFilter_reqUrl : " + reqUrl);
+		HttpServletRequest httpReq = (HttpServletRequest) request;
+		HttpServletResponse httpResp = (HttpServletResponse) response;
 		
-		if(!excludeCheck(reqUrl)) {
-			chain.doFilter(request, response); 
-			return;
-		}
+		String uri = httpReq.getRequestURI();
 		
-		HttpSession session = httpRequest.getSession();
-		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
-		if (loginUser != null && loginUser.getEnabled() == 0) {
-			String url = "member/disable";
-			ViewResolver.view(httpRequest, httpResponse, url);
-		} else {
-			chain.doFilter(request, response);
-		}
-	}
-
-	private boolean excludeCheck(String url) {
-		for(String exURL:exURLs) {
-			if(url.contains(exURL)) {
-				return true;
+		MemberVO loginUser = (MemberVO) httpReq.getSession().getAttribute("loginUser");
+		
+		if(loginUser!=null && loginUser.getEnabled()!=1) {
+			for (String url : checkURLs) {	
+				if (uri.contains(url)) {
+					url="commons/checkDisabled";
+					ViewResolver.view(httpReq, httpResp, url);
+					return;
+				}
 			}
-		}		
-		return false;
-	}
+		}
+		chain.doFilter(request, response);			
+	}  
 
+	
 	public void init(FilterConfig fConfig) throws ServletException {
-		String excludeURLNames=fConfig.getInitParameter("checkURL");
-		StringTokenizer st= new StringTokenizer(excludeURLNames,",");
+		String paramValue = fConfig.getInitParameter("checkURL");
+		StringTokenizer st = new StringTokenizer(paramValue,",");
 		while(st.hasMoreTokens()) {
-			exURLs.add(st.nextToken());
-		}	
+			String urlKey = st.nextToken();
+			checkURLs.add(urlKey);
+		}
 	}
 
 }
+
+
+
+
+
