@@ -35,7 +35,7 @@ public class InitListener implements ServletContextListener {
 	         
 	         Object obj = cls.newInstance();
 	         
-//	         methodname.invoke( obj1, obj2) obj1로가서 methodname과 같은것을 찾아내서 obj2를 사용하라는 뜻 (알아서해라라는 의미로 invoke사용)7
+//	         methodname.invoke( obj1, obj2) obj1로가서 methodname과 같은것을 찾아내서 obj2를 사용하라는 뜻 (알아서해라라는 의미로 invoke사용)
 	         setSqlSessionFactory.invoke(obj, sqlSessionFactory);
 	         
 	         MemberDAO memberDAO = (MemberDAO)obj;
