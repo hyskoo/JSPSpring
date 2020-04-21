@@ -8,7 +8,10 @@ import javax.servlet.annotation.WebListener;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import com.jsp.dao.BoardDAO;
 import com.jsp.dao.MemberDAO;
+import com.jsp.request.SearchCriteria;
+import com.jsp.service.BoardServiceImpl;
 import com.jsp.service.MemberServiceImpl;
 
 @WebListener
@@ -22,6 +25,7 @@ public class InitListener implements ServletContextListener {
          String sqlSessionFactoryType = 
         		 ctxEvent.getServletContext().getInitParameter("sqlSessionFactory");
          String memberDAOType = ctxEvent.getServletContext().getInitParameter("memberDAO");
+         String boardDAOType = ctxEvent.getServletContext().getInitParameter("boardDAO");
          
          try {
         	 
@@ -41,6 +45,22 @@ public class InitListener implements ServletContextListener {
 	         MemberDAO memberDAO = (MemberDAO)obj;
 	         
 	         MemberServiceImpl.getInstance().setMemberDAO(memberDAO);
+	         
+	         
+	         
+	         //////////////////////////////////////////////////////////////////////
+	         
+	         Class<?> Boardcls = Class.forName(boardDAOType);        
+	         
+	         Method setSqlSessionFactoryBoard = Boardcls.getMethod("setSessionFactory", SqlSessionFactory.class);
+	         
+	         Object objBoard = Boardcls.newInstance();
+	         
+	         setSqlSessionFactoryBoard.invoke(objBoard, sqlSessionFactory);
+	         
+	         BoardDAO boardDAO = (BoardDAO)objBoard;
+	         
+	         BoardServiceImpl.getInstance().setBoardDAO(boardDAO);
 	         
          }catch(Exception e) {
         	 e.printStackTrace();

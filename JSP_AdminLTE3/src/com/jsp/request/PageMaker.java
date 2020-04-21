@@ -15,9 +15,9 @@ public class PageMaker {
 	
 	//starPage,endPage, prev, next 설정. by totalCount
 	private void calcData(){
-		endPage = (int) (Math.ceil(cri.getPage() / (double) displayPageNum) * displayPageNum);
-	
-		startPage = (endPage - displayPageNum) + 1;		
+		endPage = (int) (Math.ceil(cri.getPage() / (double) displayPageNum)
+					* displayPageNum);
+					startPage = (endPage - displayPageNum) + 1;		
 		
 		realEndPage= (int) (Math.ceil(totalCount / (double) cri.getPerPageNum()));
 		
@@ -31,8 +31,15 @@ public class PageMaker {
 		prev = startPage == 1 ? false : true;
 		next = endPage * cri.getPerPageNum() >= totalCount ? false : true;
 	}
+	   
 
-	
+	public String makeQuery(int page){	
+		String query="?page="+page
+				    +"&perPageNum="+cri.getPerPageNum()
+				    +"&searchType="+cri.getSearchType()
+				    +"&keyword="+cri.getKeyword();
+		return query;
+	}
 	
 
 	public int getTotalCount() {
@@ -117,8 +124,15 @@ public class PageMaker {
 	}
 	
 	
+		
 	
 }
+
+
+
+
+
+
 
 
 

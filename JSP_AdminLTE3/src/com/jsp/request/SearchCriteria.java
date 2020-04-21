@@ -9,7 +9,7 @@ public class SearchCriteria {
 	
 	public SearchCriteria() {
 		this.page = 1;
-		this.perPageNum = 1;
+		this.perPageNum = 10;
 		this.searchType = "";
 		this.keyword = "";
 	}

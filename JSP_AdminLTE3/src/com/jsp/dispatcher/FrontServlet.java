@@ -1,0 +1,46 @@
+package com.jsp.dispatcher;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.jsp.action.Action;
+
+public class FrontServlet extends HttpServlet {
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		requestProcess(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		requestProcess(request, response);
+	}
+
+	
+	private void requestProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String command = request.getRequestURI(); // contextPath 포함
+		
+		if (command.indexOf(request.getContextPath()) == 0) {
+			command = command.substring(request.getContextPath().length());
+		}
+		
+		Action act = null;
+		String view = null;
+		
+		act = HandlerMapper.getAction(command);
+		
+		if (act == null) {
+			System.out.println("!! not found : " + command);
+		} else {
+			view = act.execute(request, response);
+					
+			if (view != null) {
+				ViewResolver.view(request, response, view);
+			}
+		}
+	}
+	
+}

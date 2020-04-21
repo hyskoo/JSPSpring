@@ -7,12 +7,14 @@
 		* 
 		from member 
 		where id=#{id}
+		order by regDate desc
 	</select>
 	
 		
 	<select id="selectMemberList" resultType="member">
 		select * 
 		from member
+		order by regDate desc
 	</select>
 	
 	<sql id="search">	

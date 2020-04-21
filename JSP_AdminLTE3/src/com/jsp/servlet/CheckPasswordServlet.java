@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.jsp.dto.MemberVO;
 
-@WebServlet("/member/checkPassword")
+//@WebServlet("/member/checkPassword")
 public class CheckPasswordServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String result=null;
