@@ -6,32 +6,38 @@ import java.util.List;
 import java.util.Map;
 
 import com.jsp.dao.BoardDAO;
+import com.jsp.dao.ReplyDAO;
 import com.jsp.dto.BoardVO;
 import com.jsp.request.PageMaker;
 import com.jsp.request.SearchCriteria;
 
 public class BoardServiceImpl implements BoardService {
 	
-	private static BoardServiceImpl instance = new BoardServiceImpl();
-	private BoardServiceImpl() { }
-	public static BoardServiceImpl getInstance() {
-		return instance;
-	}
-
 	private BoardDAO boardDAO;
 	public void setBoardDAO(BoardDAO boardDAO) {
 		this.boardDAO = boardDAO;
 	}
+	private ReplyDAO replyDAO;
+	public void setReplyDAO(ReplyDAO replyDAO){
+		this.replyDAO=replyDAO;
+	}
 
 	@Override
 	public Map<String, Object> getBoardList(SearchCriteria cri) throws SQLException {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+
 		List<BoardVO> boardList = boardDAO.selectBoardCriteria(cri);
+		int totalCount = boardDAO.selectBoardCriteriaTotalCount(cri);
+		
+		for (BoardVO board : boardList) {
+			int replyCnt = replyDAO.countReply(board.getBno());
+			board.setReplycnt(replyCnt);
+		}
 		
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(boardDAO.selectBoardCriteriaTotalCount(cri));
+		pageMaker.setTotalCount(totalCount);
 		
-		Map<String, Object> dataMap = new HashMap<String, Object>();
 		dataMap.put("boardList", boardList);
 		dataMap.put("pageMaker", pageMaker);
 		
@@ -40,8 +46,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public BoardVO getBoard(int bno) throws SQLException {
-		BoardVO boardByBno = boardDAO.selectBoardByBno(bno);
 		boardDAO.increaseViewCnt(bno);
+		BoardVO boardByBno = boardDAO.selectBoardByBno(bno);
 		return boardByBno;
 	}
 
@@ -53,6 +59,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void write(BoardVO board) throws SQLException {
+		int bno = boardDAO.selectBoardSeqNext();
+		board.setBno(bno);
 		boardDAO.insertBoard(board);
 	}
 

@@ -9,9 +9,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.jsp.action.Action;
 import com.jsp.dto.BoardVO;
+import com.jsp.service.BoardService;
 import com.jsp.service.BoardServiceImpl;
 
 public class BoardRegistAction implements Action {
+	
+	private BoardService boardService;
+	public void setBoardService(BoardService boardService) {
+		this.boardService = boardService;
+	}
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
@@ -28,7 +34,7 @@ public class BoardRegistAction implements Action {
 		board.setContent(content);
 		
 		try {
-			BoardServiceImpl.getInstance().write(board);
+			boardService.write(board);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			url = "error/500_error";

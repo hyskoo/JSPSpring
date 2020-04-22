@@ -13,7 +13,7 @@ import com.jsp.service.BoardServiceImpl;
 
 public class BoardModifyFormAction implements Action {
 	
-	private BoardService boardService = BoardServiceImpl.getInstance();
+	private BoardService boardService;
 	public void setBoardService(BoardService boardService) {
 		this.boardService = boardService;
 	}

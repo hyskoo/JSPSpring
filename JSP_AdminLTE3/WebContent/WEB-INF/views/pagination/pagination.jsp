@@ -32,7 +32,7 @@
 			</a>
 		</li>	
 	</ul>
-</nav>   	
+</nav>
 
 <form id="jobForm">
 	<input type='hidden' name="page" value="${pageMaker.cri.page}" />

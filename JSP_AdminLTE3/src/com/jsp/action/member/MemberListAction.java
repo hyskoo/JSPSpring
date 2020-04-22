@@ -14,6 +14,11 @@ import com.jsp.service.MemberService;
 import com.jsp.service.MemberServiceImpl;
 
 public class MemberListAction implements Action {
+	
+	private MemberService memberService;
+	public void setMemberService(MemberService memberService) {
+		this.memberService = memberService;
+	}
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
@@ -37,7 +42,7 @@ public class MemberListAction implements Action {
 		cri.setSearchType(searchType);
 		cri.setKeyword(keyword);
 		
-		MemberService service  = MemberServiceImpl.getInstance();
+		MemberService service  = memberService;
 		
 		try {
 					

@@ -64,26 +64,21 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-	
-<!-- Summernote -->
-<script src="<%=request.getContextPath() %>/resources/bootstrap/plugins/summernote/summernote-bs4.min.js"></script>
+
 <script>
-	$(function(){
-		$('#content').summernote({
-	
-			placeholder:'여기에 내용을 적으세요.',
-			height:250,		
-		});
-	});
-	
 	$('#modifyBtn').on('click',function(e){				
-		var title=$('input[name="title"]');
-		if(title.val()==""){
-			alert("제목은 필수입니다.");			
-			title.focus();
+		var form=document.modifyForm;
+		
+		if(form.title.value==""){
+			alert("제목은 필수입니다.");
 			return;
 		}
-		var form=document.modifyForm;		
+		
+		if(form.content.value.length>1000){
+			alert("글자수가 1000자를 초과할 수 없습니다.");
+			return;
+		}
+		
 		form.submit();
 	});
 	
@@ -91,6 +86,9 @@
 		history.go(-1);
 	});
 </script>
+
+<%@ include file="/WEB-INF/views/commons/summernote.jsp" %>
+
 </body>
 
 

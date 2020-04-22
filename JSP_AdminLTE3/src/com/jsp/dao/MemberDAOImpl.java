@@ -23,7 +23,6 @@ public class MemberDAOImpl implements MemberDAO {
 	public void setSessionFactory(SqlSessionFactory sessionFactory) {
 		this.sessionFactory=sessionFactory;
 	}
-			/*= OracleMyBatisSqlSessionFactoryBuilder.getSqlSessionFactory();*/
 	
 	
 	@Override

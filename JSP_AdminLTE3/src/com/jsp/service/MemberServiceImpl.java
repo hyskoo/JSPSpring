@@ -14,17 +14,7 @@ import com.jsp.request.SearchCriteria;
 
 public class MemberServiceImpl implements MemberService {
 
-	// 싱글톤 패턴 구현
-	private static MemberServiceImpl instance = new MemberServiceImpl();
-
-	private MemberServiceImpl() {
-	}
-
-	public static MemberServiceImpl getInstance() {
-		return instance;
-	}
-
-	private MemberDAO memberDAO; // =MemberDAOImpl.getInstance();
+	private MemberDAO memberDAO;
 	public void setMemberDAO(MemberDAO memberDAO) {
 		this.memberDAO = memberDAO;
 	}

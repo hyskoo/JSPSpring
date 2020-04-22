@@ -6,10 +6,10 @@
 		<if test="searchType == 't'.toString()">
 			AND title LIKE '%'||#{keyword}||'%'
 		</if>
-		<if test="searchType == 't'.toString()">
+		<if test="searchType == 'w'.toString()">
 			AND writer LIKE '%'||#{keyword}||'%'
 		</if>
-		<if test="searchType == 't'.toString()">
+		<if test="searchType == 'c'.toString()">
 			AND content LIKE '%'||#{keyword}||'%'
 		</if>
 		<if test="searchType == 'tc'.toString()">
@@ -21,58 +21,57 @@
 				OR writer LIKE '%'||#{keyword}||'%')
 		</if>
 		<if test="searchType == 'tcw'.toString()">
-<!-- 			AND (title LIKE '%'||#{keyword}||'%' -->
-<!-- 			OR content LIKE '%'||#{keyword}||'%' -->
-<!-- 			OR writer LIKE '%'||#{keyword}||'%') -->
+			AND (title LIKE '%'||#{keyword}||'%'
+			OR content LIKE '%'||#{keyword}||'%'
+			OR writer LIKE '%'||#{keyword}||'%')
 		</if>
 	</sql>
-	<select id="selectBoardCriteria" resultType="board">
+	<select id="selectSearchBoardList" resultType="board" parameterType="com.jsp.request.SearchCriteria">
 		SELECT *
 		FROM board
 		WHERE bno IS NOT NULL
 		<include refid="boardSearch" />
-		order by regDate desc
+		ORDER BY regdate DESC
 	</select>
 	
-	<select id="selectBoardCriteriaTotalCount" resultType="int">
+	<select id="selectSearchBoardListCount" resultType="int" parameterType="com.jsp.request.SearchCriteria">
 		SELECT COUNT(*)
 		FROM board
 		WHERE bno IS NOT NULL
 		<include refid="boardSearch" />
-		order by regDate desc
+		ORDER BY regdate DESC
 	</select>
 	
-	<select id="selectBoardByBno" resultType="board">
+	<select id="selectBoardByBno" resultType="board" parameterType="int">
 		SELECT *
 		FROM board
 		WHERE bno = #{bno}
 	</select>
 	
-	
-	<update id="insertBoard">
+	<update id="insertBoard" parameterType="board">
 		INSERT INTO board(bno, title, writer, content)
-		VALUES (SEQ_BOARD.NEXTVAL, #{title}, #{writer}, #{content})
+		VALUES (#{bno}, #{title}, #{writer}, #{content})
 	</update>
 	
-	<update id="updateBoard">
+	<update id="updateBoard" parameterType="board">
 		UPDATE board
-		SET title = #{title}, writer = #{writer}, content = #{content}, updatedate = SYSDATE
+		SET title = #{title}, content = #{content}, updatedate = SYSDATE
 		WHERE bno = #{bno}
 	</update>
 	
-	<update id="deleteBoard">
+	<update id="deleteBoard" parameterType="int">
 		DELETE FROM board
 		WHERE bno = #{bno}
 	</update>
 	
-	<update id="increaseViewCnt">
+	<update id="increaseViewCnt" parameterType="int">
 		UPDATE board
 		SET viewcnt = viewcnt + 1
 		WHERE bno = #{bno}
 	</update>
 
 	<select id="selectBoardSeqNext" resultType="int">
-		SELECT SEQ_BOARD.CURRVAL
+		SELECT SEQ_BOARD.NEXTVAL AS bno
 		FROM dual
 	</select>
 	

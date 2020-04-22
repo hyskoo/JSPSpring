@@ -26,7 +26,7 @@ public class BoardDAOImpl implements BoardDAO {
 		int limit = cri.getPerPageNum();
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		boardList = session.selectList("Board-Mapper.selectBoardCriteria", cri, rowBounds);
+		boardList = session.selectList("Board-Mapper.selectSearchBoardList", cri, rowBounds);
 		session.close();
 		
 		return boardList;
@@ -36,7 +36,7 @@ public class BoardDAOImpl implements BoardDAO {
 	public int selectBoardCriteriaTotalCount(SearchCriteria cri) throws SQLException {
 		int count = 0;
 		SqlSession session = sessionFactory.openSession();
-		count = session.selectOne("Board-Mapper.selectBoardCriteriaTotalCount", cri);
+		count = session.selectOne("Board-Mapper.selectSearchBoardListCount", cri);
 		session.close();
 		return count;
 	}
