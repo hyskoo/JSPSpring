@@ -3,7 +3,8 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 
 <script>
-	alert("게시글등록이 정상적으로 완료되었습니다.");
+	alert("자료실 글삭제에 성공하셨습니다");
+	window.opener.location.reload();
 	window.close();
-	window.opener.location.reload(true);
 </script>
+

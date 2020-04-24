@@ -10,6 +10,8 @@
 		<typeAlias type="com.jsp.dto.MemberVO" alias="member" />
 		<typeAlias type="com.jsp.dto.BoardVO" alias="board" />
 		<typeAlias type="com.jsp.dto.ReplyVO" alias="reply" />
+		<typeAlias type="com.jsp.dto.AttachVO" alias="attach" />
+		<typeAlias type="com.jsp.dto.PdsVO" alias="pds" />
 	</typeAliases>
 
 	<environments default="dev">
@@ -28,5 +30,8 @@
 		<mapper resource="com/jsp/mybatis/Member-Mapper.xml" />
 		<mapper resource="com/jsp/mybatis/Board-Mapper.xml" />
 		<mapper resource="com/jsp/mybatis/Reply-Mapper.xml" />
+		
+		<mapper resource="com/jsp/mybatis/Attach-Mapper.xml" />
+		<mapper resource="com/jsp/mybatis/Pds-Mapper.xml" />
 	</mappers>
 </configuration>

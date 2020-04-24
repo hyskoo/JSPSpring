@@ -30,7 +30,6 @@ public class ReplyServiceImpl implements ReplyService{
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(count);
 		
-		
 		dataMap.put("replyList", replyList);
 		dataMap.put("pageMaker", pageMaker);
 		

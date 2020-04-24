@@ -4,6 +4,11 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	
 	<context-param>
+		<param-name>sessionFactory</param-name>
+		<param-value>com.jsp.mybatis.OracleMyBatisSqlSessionFactory</param-value>
+	</context-param>
+	
+	<context-param>
 		<param-name>memberService</param-name>
 		<param-value>com.jsp.service.MemberServiceImpl</param-value>
 	</context-param>
@@ -28,8 +33,16 @@
 		<param-value>com.jsp.dao.ReplyDAOImpl</param-value>
 	</context-param>
 	<context-param>
-		<param-name>sessionFactory</param-name>
-		<param-value>com.jsp.mybatis.OracleMyBatisSqlSessionFactory</param-value>
+		<param-name>pdsService</param-name>
+		<param-value>com.jsp.service.PdsServiceImpl</param-value>
+	</context-param>
+	<context-param>
+		<param-name>pdsDAO</param-name>
+		<param-value>com.jsp.dao.PdsDAOImpl</param-value>
+	</context-param>
+	<context-param>
+		<param-name>attachDAO</param-name>
+		<param-value>com.jsp.dao.AttachDAOImpl</param-value>
 	</context-param>
 	<listener>
 		<listener-class>com.jsp.listener.InitListener</listener-class>
@@ -39,6 +52,14 @@
 	<servlet>
 		<servlet-name>FrontServlet</servlet-name>
 		<servlet-class>com.jsp.dispatcher.FrontServlet</servlet-class>
+		<init-param>
+			<param-name>handlerMapper</param-name>
+			<param-value>com.jsp.dispatcher.HandlerMapper</param-value>
+		</init-param>
+		<init-param>
+			<param-name>viewResolver</param-name>
+			<param-value>com.jsp.dispatcher.ViewResolver</param-value>
+		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
@@ -68,6 +89,11 @@
 			<param-name>exclude</param-name>
 			<param-value>resources,commons,.jsp</param-value>
 		</init-param>
+		<init-param>
+			<param-name>viewResolver</param-name>
+			<param-value>com.jsp.dispatcher.ViewResolver</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
 	</filter>
 	<filter-mapping>
 		<filter-name>loginCheckFilter</filter-name>
@@ -80,6 +106,11 @@
 			<param-name>checkURL</param-name>
 			<param-value>modify,regist,remove,disabled,enabled</param-value>
 		</init-param>
+		<init-param>
+			<param-name>viewResolver</param-name>
+			<param-value>com.jsp.dispatcher.ViewResolver</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
 	</filter>
 	<filter-mapping>
 		<filter-name>memberDisabledFilter</filter-name>

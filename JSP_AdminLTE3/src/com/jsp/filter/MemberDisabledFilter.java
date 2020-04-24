@@ -21,10 +21,9 @@ import com.jsp.dto.MemberVO;
 public class MemberDisabledFilter implements Filter {
 
 	private List<String> checkURLs=new ArrayList<String>();
+	private ViewResolver viewResolver;
 	
-	public void destroy() {
-		// TODO Auto-generated method stub
-	}
+	public void destroy() { }
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
@@ -39,7 +38,7 @@ public class MemberDisabledFilter implements Filter {
 			for (String url : checkURLs) {	
 				if (uri.contains(url)) {
 					url="commons/checkDisabled";
-					ViewResolver.view(httpReq, httpResp, url);
+					viewResolver.view(httpReq, httpResp, url);
 					return;
 				}
 			}
@@ -54,6 +53,16 @@ public class MemberDisabledFilter implements Filter {
 		while(st.hasMoreTokens()) {
 			String urlKey = st.nextToken();
 			checkURLs.add(urlKey);
+		}
+		
+		String viewResolverType = fConfig.getInitParameter("viewResolver");
+		try {
+			Class<?> cls = Class.forName(viewResolverType);
+			this.viewResolver = (ViewResolver)cls.newInstance();
+			System.out.println("[MemberDisabledFilter]" + viewResolverType + "이 준비완료 되었습니다");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("[MemberDisabledFilter]" + viewResolverType + "이 준비되지 않았습니다");
 		}
 	}
 

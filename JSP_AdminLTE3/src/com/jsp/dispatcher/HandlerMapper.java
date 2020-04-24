@@ -12,11 +12,9 @@ import com.jsp.action.ApplicationContext;
 
 public class HandlerMapper {
 	
-	private HandlerMapper(){}
+	private Map<String,Action> commandMap =	new HashMap<String,Action>();
 	
-	private static Map<String,Action> commandMap =	new HashMap<String,Action>();
-	
-	static {
+	{
 		
 		String path="com/jsp/properties/url";
 		
@@ -24,14 +22,16 @@ public class HandlerMapper {
 		
 		Set<String> actionSetHome=rbHome.keySet();
 		
+		System.out.println("actionSetHome : " + actionSetHome);
+		
 		Iterator<String> it=actionSetHome.iterator();
 		
 		while(it.hasNext()){
 			String command = it.next();
 			
-			String actionClassName=rbHome.getString(command);
+			String actionClassName=rbHome.getString(command); // properties에서 value값을 가져온다. 그런데 그것이 String이므로 getString
 			
-			System.out.println(actionClassName);
+			System.out.println("actionClassName : " + actionClassName);
 			
 			try {
 			Class<?> actionClass = Class.forName(actionClassName);
@@ -56,12 +56,12 @@ public class HandlerMapper {
 			
 			commandMap.put(command, commandAction);
 			
-			System.out.println(command+":"+commandAction +" 가 준비되었습니다.");
+			System.out.println("[HandlerMapper]" + command + " : " + commandAction + " 가 준비되었습니다.\r\n");
 			
 			}catch (ClassNotFoundException e){
-				System.out.println(actionClassName + "이 존재하지 않습니다.");
+				System.out.println("[HandlerMapper]" + actionClassName + "이 존재하지 않습니다.");
 			} catch (InstantiationException e) {
-				System.out.println(actionClassName + "인스턴스를 생성할 수 없습니다.");
+				System.out.println("[HandlerMapper]" + actionClassName + "인스턴스를 생성할 수 없습니다.");
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();
 			}	
@@ -69,7 +69,7 @@ public class HandlerMapper {
 		}
 	}
 	
-	public static Action getAction(String command){
+	public Action getAction(String command){
 		Action action = commandMap.get(command);
 		return action;
 	}
