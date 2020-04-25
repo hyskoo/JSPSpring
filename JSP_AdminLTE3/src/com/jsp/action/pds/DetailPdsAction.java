@@ -29,6 +29,7 @@ public class DetailPdsAction implements Action {
 		try {
 			PdsVO pds = pdsService.getPds(pno);
 			request.setAttribute("pds", pds);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

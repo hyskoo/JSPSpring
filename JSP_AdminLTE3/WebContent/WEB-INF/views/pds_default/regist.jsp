@@ -20,7 +20,8 @@
 						<h4>글등록</h4>
 					</div><!--end card-header  -->
 					<div class="card-body">
-						<form enctype="multipart/form-data" role="form" method="post" action="regist.do" name="registForm">
+					<!-- enctype="multipart/form-data"  -->
+						<form role="form" method="post" action="regist.do" name="registForm"> 
 							<div class="form-group">
 								<label for="writer">작성자</label> 
 								<input type="text" id="writer" readonly
@@ -65,7 +66,7 @@
 <%@ include file="/WEB-INF/views/commons/summernote.jsp" %>
 
 <jsp:include page="./regist_js.jsp" />
-<jsp:include page="./attach_js.jsp" />
+<%-- <jsp:include page="./attach_js.jsp" /> --%>
 
 
 </body>

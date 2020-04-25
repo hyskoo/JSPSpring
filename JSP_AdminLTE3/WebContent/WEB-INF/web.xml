@@ -60,7 +60,7 @@
 			<param-name>viewResolver</param-name>
 			<param-value>com.jsp.dispatcher.ViewResolver</param-value>
 		</init-param>
-		<load-on-startup>1</load-on-startup>
+<!-- 		<load-on-startup>1</load-on-startup> -->
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>FrontServlet</servlet-name>
@@ -93,7 +93,7 @@
 			<param-name>viewResolver</param-name>
 			<param-value>com.jsp.dispatcher.ViewResolver</param-value>
 		</init-param>
-		<load-on-startup>1</load-on-startup>
+<!-- 		<load-on-startup>1</load-on-startup> -->
 	</filter>
 	<filter-mapping>
 		<filter-name>loginCheckFilter</filter-name>
@@ -110,7 +110,7 @@
 			<param-name>viewResolver</param-name>
 			<param-value>com.jsp.dispatcher.ViewResolver</param-value>
 		</init-param>
-		<load-on-startup>1</load-on-startup>
+<!-- 		<load-on-startup>1</load-on-startup> -->
 	</filter>
 	<filter-mapping>
 		<filter-name>memberDisabledFilter</filter-name>

@@ -1,4 +1,4 @@
-package com.jsp.action.pds;
+package com.jsp.action.pds_default;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -25,10 +25,23 @@ public class RegistPdsAction implements Action {
 			throws ServletException, IOException {
 		String url = "pds/regist_success"; 
 		
+		String title = request.getParameter("title");
+		String writer = request.getParameter("writer");
+		String content = request.getParameter("content");
+		
+		RegistPdsRequest pdsReq = new RegistPdsRequest();
+		pdsReq.setTitle(title);
+		pdsReq.setWriter(writer);
+		pdsReq.setContent(content);
+		PdsVO pds = pdsReq.toPdsVO();
+		
+		System.out.println(title);
+		System.out.println(writer);
+		System.out.println(content);
+		
 		try {
-			PdsVO pds = new UploadFilePdsAction().saveFileAndFormData(request, response);
 			pdsService.regist(pds);
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
