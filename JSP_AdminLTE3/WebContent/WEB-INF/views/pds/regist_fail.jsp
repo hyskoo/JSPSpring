@@ -3,8 +3,6 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 
 <script>
-	alert("자료실 글삭제에 성공하셨습니다");
-	window.opener.location.reload();
-	window.close();
+	alert("자료등록에 실패했습니다.");
+	history.go(-1);
 </script>
-

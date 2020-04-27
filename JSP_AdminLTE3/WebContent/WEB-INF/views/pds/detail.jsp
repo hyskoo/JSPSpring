@@ -3,24 +3,25 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
-<title>상세보기</title>
-
+<head>
+	<title>상세보기</title>
+	<!-- Ionicons -->
+  	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+</head>
 <body>
   <!-- Content Wrapper. Contains page content -->
-  <div  style="max-width:800px;min-width:420px;margin:0 auto;min-height:812px;">
-   
-   	<jsp:include page="content_header.jsp">
-	   	<jsp:param value="자료실" name="subject"/>
-	   	<jsp:param value="상세보기" name="item"/>
-	   	<jsp:param value="detail.do" name="url"/>
-   </jsp:include>
-   
+  <div >
+  	  <jsp:include page="content_header.jsp">
+    	<jsp:param value="자료실" name="subject"/>
+		<jsp:param value="상세보기" name="item"/>
+		<jsp:param value="list.do" name="url"/>    	
+    </jsp:include>
+
     <!-- Main content -->
     <section class="content container-fluid">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="card card-outline card-info">
+				<div class="card card-outline card-primary">
 					<div class="card-header">
 						<h3 class="card-title">상세보기</h3>
 					</div>
@@ -29,57 +30,69 @@
 							<label for="title">제 목</label>
 							<input type="text" class="form-control" id="title" 
 								value="${pds.title }" readonly />							
-						</div>
-						<div class="row">	
+						</div>	
+						<div class="col-sm-12 row">
 							<div class="form-group col-sm-4" >
 								<label for="writer">작성자</label>
 								<input type="text" class="form-control" id="writer" 
-									value="${pds.writer }" readonly />
+									 value="${pds.writer }" readonly />
 							</div>		
 							
 							<div class="form-group col-sm-4" >
 								<label for="regDate">작성일</label>
 								<input type="text" class="form-control" id="regDate" 
 									value="<fmt:formatDate value="${pds.regDate }" pattern="yyyy-MM-dd" />" readonly />
-							
-							</div>
+							</div>	
 							<div class="form-group col-sm-4" >
 								<label for="viewcnt">조회수</label>
-								<input type="text" class="form-control" id="viewcnt" 
-									value="${pds.viewcnt }" readonly />
-							</div>
-						</div>		
+								<input type="text" class="form-control" id="viewcnt" value="${pds.viewcnt }"
+									 readonly />
+							</div>	
+						</div>	
 						<div class="form-group col-sm-12">
 							<label for="content">내 용</label>
 							<div id="content">${pds.content }</div>	
 						</div>
-						<div class="form-group">								
+						<div class="form-group col-sm-12">
 							<div class="card card-outline card-success">
 								<div class="card-header">
-									<h5 style="display:inline;line-height:40px;">첨부파일 : </h5>
-								</div>
-								<!-- 파일 다운로드를 하려면 A태그를 통해서 url요청을 해서 해당 파일의 pk를 넘겨서 해당 파일을 다운로드받도록한다. -->
-										
-								<div class="card-footer fileInput">
-									<c:set var="attach" value="${pds.attachList }" />
-									<c:forEach items="${attach}" var="at">
-										<a href="javascript:fileDown('${at.ano}');">${at.uploadPath}${at.fileName}${at.fileType}</a>
-										<br/>
-									</c:forEach>
-								</div>
+									<h3>첨부파일</h3>
+								</div>			
+								<div class="card-footer">
+									<div class="row">
+										<c:forEach items="${pds.attachList }" var="attach">
+											<div class="col-md-4 col-sm-4 col-xs-12"  style="cursor:pointer;" 
+												onclick="location.href='<%=request.getContextPath() %>/attach/getFile.do?pno=${pds.pno}&ano=${attach.ano}'">
+												<div class="info-box">	
+												 	<span class="info-box-icon bg-yellow">
+														<i class="fa fa-copy"></i>
+													</span>
+													<div class="info-box-content">
+														<span class ="info-box-text">
+															<fmt:formatDate value="${attach.regDate }" pattern="yyyy-MM-dd" />	
+														</span>
+														<span class ="info-box-number">${attach.fileName }</span>
+													</div>
+												</div>
+											 </div>											 
+										</c:forEach>
+									</div>
+								</div>				
 							</div>
 						</div>
+												
 					</div>
 					<div class="card-footer">
-						<c:if test="${loginUser.id eq pds.writer }">
-						<button type="button" id="modifyBtn" class="btn btn-warning">MODIFY</button>						
-					    <button type="button" id="removeBtn" class="btn btn-danger">REMOVE</button>
-					    </c:if>
-					    <button type="button" id="listBtn" class="btn btn-primary">CLOSE</button>
+						<c:if test="${loginUser.id eq pds.writer}">
+							<button type="button" id="modifyBtn" class="btn btn-warning">Modify</button>						
+						    <button type="button" id="removeBtn" class="btn btn-danger">REMOVE</button>
+						    <button type="button" id="listBtn" class="btn btn-primary">GO LIST </button>
+						</c:if>
 					</div>									
 				</div><!-- end card -->				
 			</div><!-- end col-md-12 -->
-		</div><!-- end row  -->
+		</div><!-- end row  -->		
+		
     </section>
     <!-- /.content -->
   </div>
@@ -87,29 +100,11 @@
   
   <form role="form">
   	<input type='hidden' name='pno' value ="${pds.pno}">
-  	<input type='hidden' name='page' value ="${param.page}">
-    <input type='hidden' name='perPageNum' value ="${param.perPageNum}">
-    <input type='hidden' name="searchType" 
-		         value="${param.searchType }" />
-	<input type='hidden' name="keyword" 
-		         value="${param.keyword }" />
   </form>
 
-
-
 <jsp:include page="./detail_js.jsp"></jsp:include>
-	
+
 </body>
-
-
-
-
-
-
-
-
-
-
 
 
 

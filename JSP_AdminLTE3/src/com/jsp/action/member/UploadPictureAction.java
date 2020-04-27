@@ -89,7 +89,7 @@ public class UploadPictureAction implements Action {
 				if (!item.isFormField()) { // isFormField는 일반파라미터인지 확인해주는것 (즉, 여기서는 파일일 경우 해당됨) - 업로드된 파일 저장
 
 					// uuid + 구분자 + 파일명
-					fileName = MakeFileName.toUUIDFileNmae(".jpg", "");
+					fileName = MakeFileName.toUUIDFileName(".jpg", "");
 					String filePath = uploadPath + File.separator + fileName;
 					File storeFile = new File(filePath);
 
