@@ -97,6 +97,10 @@ public class UploadFilePdsAction {
 					
 				} else {
 					switch (item.getFieldName()) {
+					case "pno":
+						String pno = item.getString("utf-8");
+						pdsVO.setPno(Integer.parseInt(pno));
+						break;
 					case "writer":
 						String writer = item.getString("utf-8");
 						pdsVO.setWriter(writer);
@@ -108,10 +112,6 @@ public class UploadFilePdsAction {
 					case "content":
 						String content = item.getString("utf-8");
 						pdsVO.setContent(content);
-						break;
-					case "pno":
-						String pno = item.getString("utf-8");
-						pdsVO.setPno(Integer.parseInt(pno));
 						break;
 					}
 				}

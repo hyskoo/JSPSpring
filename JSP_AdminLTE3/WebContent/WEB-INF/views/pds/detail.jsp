@@ -57,14 +57,15 @@
 							<div class="card card-outline card-success">
 								<div class="card-header">
 									<h5 style="display:inline;line-height:40px;">첨부파일 : </h5>
-									<c:set var="attach" value="${pds.attachList }" />
-									<c:forEach items="${attach}" var="at">
-										<br/><a href="javascript:fileDown('${at.ano}');">${at.uploadPath}${at.fileName}${at.fileType}</a>
-									</c:forEach>
 								</div>
 								<!-- 파일 다운로드를 하려면 A태그를 통해서 url요청을 해서 해당 파일의 pk를 넘겨서 해당 파일을 다운로드받도록한다. -->
 										
 								<div class="card-footer fileInput">
+									<c:set var="attach" value="${pds.attachList }" />
+									<c:forEach items="${attach}" var="at">
+										<a href="javascript:fileDown('${at.ano}');">${at.uploadPath}${at.fileName}${at.fileType}</a>
+										<br/>
+									</c:forEach>
 								</div>
 							</div>
 						</div>
