@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:web="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	
+	<context-param>
+		<param-name>sessionFactory</param-name>
+		<param-value>kr.pe.krh.mybatis.OracleMyBatisSqlSessionFactory</param-value>
+	</context-param>
+	<context-param>
+		<param-name>memberDAO</param-name>
+		<param-value>kr.pe.krh.dao.MemberDAOImpl</param-value>
+	</context-param>
+	<context-param>
+		<param-name>memberService</param-name>
+		<param-value>kr.pe.krh.service.MemberServiceImpl</param-value>
+	</context-param>
+	<listener>
+		<listener-class>kr.pe.krh.listener.InitListener</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>FrontServlet</servlet-name>
+		<servlet-class>kr.pe.krh.dispatcher.FrontServlet</servlet-class>
+		<init-param>
+			<param-name>handlerMapper</param-name>
+			<param-value>kr.pe.krh.dispatcher.HandlerMapper</param-value>
+		</init-param>
+		<init-param>
+			<param-name>viewResolver</param-name>
+			<param-value>kr.pe.krh.dispatcher.ViewResolver</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FrontServlet</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+
+
+	<filter>
+		<filter-name>setCharacterEncodingFilter</filter-name>
+		<filter-class>
+			org.apache.catalina.filters.SetCharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>setCharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	
+	<filter>
+		<filter-name>loginCheckFilter</filter-name>
+		<filter-class>kr.pe.krh.filter.LoginCheckFilter</filter-class>
+		<init-param>
+			<param-name>exclude</param-name>
+			<param-value>resources,commons,.jsp</param-value>
+		</init-param>
+		<init-param>
+			<param-name>viewResolver</param-name>
+			<param-value>kr.pe.krh.dispatcher.ViewResolver</param-value>
+		</init-param>
+<!-- 		<load-on-startup>1</load-on-startup> -->
+	</filter>
+	<filter-mapping>
+		<filter-name>loginCheckFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter>
+		<filter-name>memberDisabledFilter</filter-name>
+		<filter-class>kr.pe.krh.filter.MemberDisabledFilter</filter-class>
+		<init-param>
+			<param-name>checkURL</param-name>
+			<param-value>modify,regist,remove,disabled,enabled</param-value>
+		</init-param>
+		<init-param>
+			<param-name>viewResolver</param-name>
+			<param-value>kr.pe.krh.dispatcher.ViewResolver</param-value>
+		</init-param>
+<!-- 		<load-on-startup>1</load-on-startup> -->
+	</filter>
+	<filter-mapping>
+		<filter-name>memberDisabledFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	
+	<filter>
+		<filter-name>sitemesh</filter-name>
+		<filter-class>
+			com.opensymphony.sitemesh.webapp.SiteMeshFilter
+		</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>sitemesh</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+</web-app>

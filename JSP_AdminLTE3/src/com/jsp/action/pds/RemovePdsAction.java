@@ -12,7 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.jsp.action.Action;
 import com.jsp.dto.AttachVO;
 import com.jsp.dto.PdsVO;
+import com.jsp.request.PageMaker;
+import com.jsp.request.SearchCriteria;
 import com.jsp.service.PdsService;
+import com.jsp.utils.CreatePageMaker;
 
 public class RemovePdsAction implements Action {
 	
@@ -28,19 +31,26 @@ public class RemovePdsAction implements Action {
 		
 		int pno = Integer.parseInt(request.getParameter("pno"));
 		
+		
+		List<AttachVO> attachList = null;
 		try {
-			PdsVO pdsVO = pdsService.getPds(pno);
-			List<AttachVO> attachList = pdsVO.getAttachList();
-			for (AttachVO attach : attachList) {
-				File filePathForDelete = new File(attach.getUploadPath() + File.separator + attach.getFileName());
-				if (filePathForDelete.exists()) {
-					filePathForDelete.delete();
+			attachList = pdsService.getPds(pno).getAttachList();
+			if (attachList != null) {
+				for (AttachVO attach : attachList) {
+					File filePathForDelete = new File(attach.getUploadPath() + File.separator + attach.getFileName());
+					if (filePathForDelete.exists()) {
+						filePathForDelete.delete();
+					}
 				}
 			}
 			pdsService.remove(pno);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			
+			PageMaker pageMaker = CreatePageMaker.make(request);
+			
+			request.setAttribute("pageMaker", pageMaker);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	
 		

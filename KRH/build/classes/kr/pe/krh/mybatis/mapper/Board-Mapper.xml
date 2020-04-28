@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Board-Mapper">
+	
+	
+	<sql id="boardSearch">
+		<if test="searchType == 't'.toString()">
+			AND title LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'w'.toString()">
+			AND mno LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'tw'.toString()">
+			AND (title LIKE '%'||#{keyword}||'%'
+			OR mno LIKE '%'||#{keyword}||'%')
+		</if>
+	</sql>
+	<select id="selectBoardList" parameterType="SearchCriteria" resultType="boardVO">
+		SELECT *
+		FROM board
+		WHERE bno IS NOT NULL
+		<include refid="boardSearch" />
+		ORDER BY regdate DESC
+	</select>
+	
+	<select id="selectTotalCountOfBoardList" parameterType="SearchCriteria" resultType="Integer">
+		SELECT COUNT(*)
+		FROM board
+		WHERE bno IS NOT NULL
+		<include refid="boardSearch" />
+		ORDER BY regdate DESC
+	</select>
+	
+	<select id="selectBoardInfoByBno" parameterType="bno" resultType="boardVO">
+		SELECT * 
+		FROM board
+		WHERE bno = ${bno}
+	</select>
+	
+	<select id="getBoardSeqNext">
+		SELECT BOARD_SEQ.nextval
+		FROM dual
+	</select>
+	
+	<update id="insertBoard" parameterType="boardVO">
+		INSERT INTO board (bno, mno, title, content)
+		VALUES (${bno}, ${mno}, ${title}, ${content})
+	</update>
+	
+	<update id="updateBoard" parameterType="boardVO">
+		UPDATE board
+		SET title = ${title}, content=${content}, updatedate=sysdate
+		WHERE bno = ${bno}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="Integer">
+		DELETE FROM board
+		WHERE bno = ${bno}
+	</delete>
+	
+	<update id="increaseViewCount" parameterType="Integer">
+		UPDATE board
+		SET viewcount = viewcount + 1
+		WHERE bno = ${bno}
+	</update>
+	
+</mapper>
+
+
+
+

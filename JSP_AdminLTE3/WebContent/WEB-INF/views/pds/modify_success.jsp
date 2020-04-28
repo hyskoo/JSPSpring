@@ -4,5 +4,5 @@
 
 <script>
 	alert("게시글 수정 성공");
-	location.href="detail.do?pno=${pds.pno}";
+	location.href="detail.do${pageMaker.makeQuery()}&pno=${pds.pno}&from=modify";
 </script>

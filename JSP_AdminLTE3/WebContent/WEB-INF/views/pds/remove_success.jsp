@@ -4,7 +4,8 @@
 
 <script>
 	alert("자료실 글삭제에 성공하셨습니다");
-	window.opener.location.reload();
 	window.close();
+ 	window.opener.searchList_go(${pageMaker.cri.page}, "<%=request.getContextPath() %>/pds/list.do");
+// 	window.opener.location.href="list.do${pageMaker.makeQuery()}";
 </script>
 

@@ -88,11 +88,10 @@
 						    <button type="button" id="removeBtn" class="btn btn-danger">REMOVE</button>
 						    <button type="button" id="listBtn" class="btn btn-primary">GO LIST </button>
 						</c:if>
-					</div>									
-				</div><!-- end card -->				
+					</div>
+				</div><!-- end card -->
 			</div><!-- end col-md-12 -->
-		</div><!-- end row  -->		
-		
+		</div><!-- end row  -->
     </section>
     <!-- /.content -->
   </div>
@@ -100,6 +99,10 @@
   
   <form role="form">
   	<input type='hidden' name='pno' value ="${pds.pno}">
+  	<input type='hidden' name='page' value="${pageMaker.cri.page}">
+	<input type='hidden' name='perPageNum' value="${pageMaker.cri.perPageNum}">
+	<input type='hidden' name='searchType' value="${pageMaker.cri.searchType}">
+	<input type='hidden' name='keyword' value="${pageMaker.cri.keyword}">
   </form>
 
 <jsp:include page="./detail_js.jsp"></jsp:include>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<properties resource="kr/pe/krh/propertis/OracleDB.properties" />
+
+	<typeAliases>
+		<typeAlias type="kr.pe.krh.vo.MemberVO" alias="memberVO" />
+		<typeAlias type="kr.pe.krh.vo.BoardVO" alias="boardVO" />
+		<typeAlias type="kr.pe.krh.vo.ReplyVO" alias="replyVO" />
+		<typeAlias type="kr.pe.krh.vo.AttachVO" alias="attachVO" />
+		<typeAlias type="kr.pe.krh.util.SearchCriteria" alias="SearchCriteria" />
+	</typeAliases>
+
+	<environments default="dev">
+		<environment id="dev">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driverClassName}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<mapper resource="kr/pe/krh/mybatis/mapper/Member-Mapper.xml" />
+		<mapper resource="kr/pe/krh/mybatis/mapper/Board-Mapper.xml" />
+		<mapper resource="kr/pe/krh/mybatis/mapper/Reply-Mapper.xml" />
+		<mapper resource="kr/pe/krh/mybatis/mapper/Attach-Mapper.xml" />
+	</mappers>
+</configuration>

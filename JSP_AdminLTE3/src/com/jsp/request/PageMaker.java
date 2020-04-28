@@ -33,6 +33,10 @@ public class PageMaker {
 	}
 	   
 
+	public String makeQuery(){	
+		return makeQuery(cri.getPage());
+	}
+	
 	public String makeQuery(int page){	
 		String query="?page="+page
 				    +"&perPageNum="+cri.getPerPageNum()
